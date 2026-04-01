@@ -1,47 +1,89 @@
-# SmartCrops 🌱  
-[![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/jetpack/compose)  
-SmartCrops es una aplicación móvil diseñada para simular la monitorización y control de un invernadero inteligente. Desarrollada con **Jetpack Compose** y **Kotlin**, proporciona una interfaz moderna para gestionar datos y simular el funcionamiento de un invernadero automatizado.
+# Welcome to SmartCrops 🌱
+
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/jetpack/compose)
+[![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+
+Welcome to the **SmartCrops** repository. This Android application serves as a UI/UX prototype and simulator for a smart greenhouse monitoring system.
+
+Developed as part of a business and technology proposal during the Leader Formation Program at **Queen Mary University of London (QMUL)**, the app demonstrates how IoT and AI can be integrated to automate irrigation, predict crop growth, and assist farmers in real-time.
+
+🎥 **[Watch the Demo on YouTube](YOUR_YOUTUBE_LINK_HERE)**
 
 ---
 
-## Funcionalidades Principales 🚀
+## 📚 About The Project
 
-1. **Dashboard Principal**  
-   - Visualiza información general del invernadero.  
-   - Muestra datos actuales de temperatura, humedad y otros parámetros clave.  
-   - Botones de acceso rápido a funciones principales.  
-   - `[IMAGEN]` Aquí podrías incluir una captura del dashboard principal.
-
-2. **Configuración del Invernadero**  
-   - Permite al usuario ajustar valores óptimos de temperatura, humedad, etc.  
-   - Simula cambios en tiempo real para ver los efectos en el sistema.  
-   - `[IMAGEN]` Una imagen de la pantalla de configuración con los sliders o inputs sería útil aquí.
-
-3. **Gráficos y Monitoreo Histórico**  
-   - Muestra gráficos históricos de los datos del invernadero.  
-   - Permite filtrar por día, semana o mes para analizar tendencias.  
-   - `[IMAGEN]` Un gráfico o visualización interactiva para ilustrar esta funcionalidad.
-
-4. **Gestión de Alertas**  
-   - Configura alertas para parámetros fuera del rango permitido.  
-   - Muestra notificaciones o alertas emergentes cuando se detectan anomalías.  
-   - `[IMAGEN]` Una captura del sistema de alertas o un ejemplo de una notificación en acción.
-
-5. **Simulación de Escenarios**  
-   - Crea simulaciones personalizadas para probar cambios en las condiciones del invernadero.  
-   - Simula eventos como lluvias, sequías o fallos en el sistema de riego.  
-   - `[IMAGEN]` Una imagen del simulador mostrando diferentes escenarios sería ideal aquí.
+| Feature                | Details |
+| ---------------------- | ------- |
+| 🎯 **Purpose**         | An agricultural simulator to monitor crop health, control greenhouse variables, and receive AI-driven farming advice. |
+| ⚙️ **Architecture**     | Built entirely with a modern declarative UI using Jetpack Compose and a single-activity architecture. |
+| 🤖 **AI Integration**   | Features "TomaBot", an integrated chatbot powered by the Gemini API to answer crop-related questions. |
+| 🔗 **IoT Simulation**   | Proposes hardware integration with visual states for connected/disconnected crops and active growth phases. |
 
 ---
 
-## Cómo Empezar 🛠️
+## 🚀 Tech Stack
 
-### Requisitos Previos  
-- Android Studio **Bumblebee** o superior.  
-- JDK 11+.  
-- Emulador o dispositivo físico con Android 8.0 (API 26) o superior.  
+### Android & UI
 
-### Instalación  
-1. Clona este repositorio:  
-   ```bash
-   git clone https://github.com/MexboxLuis/SmartCrops.git
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white)
+![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=for-the-badge&logo=android&logoColor=white)
+
+- **Kotlin & Jetpack Compose:** The entire user interface is built declaratively, utilizing Compose animations, bottom sheets, and custom UI states.
+- **CameraX:** Implemented for the hardware pairing screen, allowing users to scan QR codes on their physical SmartCrop devices.
+- **Coil:** Asynchronous image loading for crop pictures and community forum feeds.
+
+### API & Networking
+
+- **OkHttp:** Used to handle asynchronous REST API POST requests directly to Google's Gemini generative language models.
+
+---
+
+## 🔧 Highlighted Features
+
+| Feature | Description |
+|--------|------------|
+| **Crop Dashboard** | View a grid or list of your active crops, displaying their connection status, current health, and specific growth phases. |
+| **TomaBot (AI Assistant)** | A dedicated chat interface connected to the Gemini API, designed to provide immediate troubleshooting and agricultural advice. |
+| **Environmental Simulator** | Interactive sliders to adjust and simulate greenhouse variables like Temperature, Humidity, Pressure, Oxygen Level, and Light Intensity. |
+| **Hardware Pairing** | A camera preview interface built with CameraX to simulate scanning and linking new IoT sensors to the app. |
+| **Community Forum** | A built-in social feed for users to share their crop progress, like posts, and leave comments. |
+
+---
+
+## 📸 Screenshots
+
+- ![Home Dashboard](assets/HomeDashboard.jpeg)
+- ![Crop Details & Simulator](assets/CropDetails.jpeg)
+- ![TomaBot AI](assets/TomaBot.jpeg)
+- ![Community Forum](assets/CommunityForum.jpeg)
+
+---
+
+## 🛠️ How to Run Locally
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/MexboxLuis/SmartCrops.git
+cd SmartCrops
+```
+
+### 2. Open the project
+
+Launch Android Studio, select **Open an existing project**, and navigate to the cloned `SmartCrops` folder.
+
+### 3. API Key Configuration (Optional but Recommended)
+
+The app uses the Gemini API for the TomaBotScreen. For local testing:
+
+1. Open `app/src/main/java/com/example/smartcropsapp/screens/TomaBotScreen.kt`.
+2. Locate the `apiKey` variable inside the `sendMessageToGeminiApi` function.
+3. Replace it with your own Google Gemini API key if needed.
+
+### 4. Build and Run
+
+Click **Sync Project with Gradle Files**.  
+Once the build is successful, select your emulator or physical device (Android 8.0 / API 26+) and click **Run (Shift + F10)**.
+
+> ⚠️ Note: The app will request Camera permissions when accessing the QR Scanner screen.

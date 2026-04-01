@@ -83,5 +83,8 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.androidx.activity.compose.v180alpha02)
 
+    // OkHttp for Gemini API calls
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 }
+

@@ -188,34 +188,59 @@ fun sendMessageToGeminiApi(
     onError: (String) -> Unit
 ) {
     val client = OkHttpClient()
-    val apiKey = "AIzaSyCiipnWNCMDZmBzprEFym4aIvyLvFVtmYs"
+    val apiKey = "YOUR_API_KEY_HERE"
+    val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
 
-    val requestBody = """
-        {
-            "prompt": "$message"
-        }
-    """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaType())
+    val textPart = JSONObject().put("text", message)
+    val partsArray = org.json.JSONArray().put(textPart)
+    val contentObject = JSONObject().put("role", "user").put("parts", partsArray)
+    val contentsArray = org.json.JSONArray().put(contentObject)
+
+    val systemTextPart = JSONObject().put(
+        "text",
+        "You are TomaBot, a friendly AI agricultural assistant for the SmartCrops greenhouse app. " +
+                "Help users with crop health, irrigation, pest control, and general farming advice. " +
+                "Keep answers concise and practical."
+    )
+    val systemParts = org.json.JSONArray().put(systemTextPart)
+    val systemInstruction = JSONObject().put("parts", systemParts)
+
+    val body = JSONObject()
+        .put("contents", contentsArray)
+        .put("systemInstruction", systemInstruction)
+
+    val requestBody = body.toString()
+        .toRequestBody("application/json; charset=utf-8".toMediaType())
 
     val request = Request.Builder()
-        .url("https://generativelanguage.googleapis.com/v1beta2/models/gemini-1.0-flash-latest:generateText?key=$apiKey")
+        .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$apiKey")
         .post(requestBody)
         .build()
 
     client.newCall(request).enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) {
-            onError(e.message ?: "Unknown error")
+            mainHandler.post { onError(e.message ?: "Unknown error") }
         }
 
         override fun onResponse(call: Call, response: Response) {
-            if (response.isSuccessful) {
-                val responseBody = response.body?.string()
-                val jsonResponse = JSONObject(responseBody ?: "")
-                val botResponse = jsonResponse.getJSONArray("candidates")
-                    .getJSONObject(0)
-                    .getString("output")
-                onResponse(botResponse)
+            val responseBody = response.body?.string()
+            if (response.isSuccessful && responseBody != null) {
+                try {
+                    val jsonResponse = JSONObject(responseBody)
+                    val botResponse = jsonResponse
+                        .getJSONArray("candidates")
+                        .getJSONObject(0)
+                        .getJSONObject("content")
+                        .getJSONArray("parts")
+                        .getJSONObject(0)
+                        .getString("text")
+                    mainHandler.post { onResponse(botResponse) }
+                } catch (e: Exception) {
+                    mainHandler.post { onError("Failed to parse response: ${e.message}") }
+                }
             } else {
-                onError("Response error hehehe ${response.message}")
+                val errorMsg = responseBody ?: response.message
+                mainHandler.post { onError("API error (${response.code}): $errorMsg") }
             }
         }
     })
