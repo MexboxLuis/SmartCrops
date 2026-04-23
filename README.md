@@ -105,4 +105,4 @@ Once the build is successful, select your emulator or physical device (Android 8
 
 | Resources | Team |
 | --------- | ---- |
-| [![Team Research PDF](https://img.shields.io/badge/PDF-Team%20Research-8A2BE2?style=flat-square&logo=adobeacrobatreader&logoColor=white)](docs/SmartCrops_Research_Bussiness.pdf) | Developed as part of an interdisciplinary team proposal during the Leader Formation Program at QMUL. This repository focuses on the mobile application prototype contribution. |
+| [![Team Research PDF](https://img.shields.io/badge/PDF-Team%20Research-8A2BE2?style=flat-square&logo=adobeacrobatreader&logoColor=white)](docs/SmartCrops_Research_Business.pdf) | Developed as part of an interdisciplinary team proposal during the Leader Formation Program at QMUL. This repository focuses on the mobile application prototype contribution. |
